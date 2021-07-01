@@ -61,6 +61,8 @@ iptables -t nat -A PREROUTING -p tcp --dport 443 -j REDIRECT --to-port 8080
 <!-- let's encrypt 발급 -->
 <!-- manual로 발급시 certbot renew 불가능, webroot로 다시 기록 -->
 certbot certonly -d '신청할 도메인' --manual --preferred-challenges dns --server https://acme-v02.api.letsencrypt.org/directory --email example@example.com
+<!-- standalone으로 재발급함 -->
+certbot certonly --standalone
 
 <!-- opensssl로 p12 변환 -->
 openssl pkcs12 -export -in fullchain.pem -inkey privkey.pem -out keystore.p12 -name 이름 -CAfile chain.pem -caname root
