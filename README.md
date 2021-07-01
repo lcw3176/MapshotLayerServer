@@ -1,14 +1,14 @@
 # MapshotProxyServer-Public
 맵샷 레이어 추가를 위한 프록시 서버
 
-### 개발 환경, 기술 스택
+## 개발 환경, 기술 스택
 * Java 11, Spring Boot
 * Vworld Open API (WMS, GetMap) [vworld-wms 페이지](https://www.vworld.kr/dev/v4dv_wmsguide2_s001.do)
 * Oracle Cloud Server, CentOS 8
 * Naver Cloud Server, CentOS 7.8
 * Let's Encrypt, OpenSSL
 
-### 프로젝트 개요
+## 프로젝트 개요
 ### Vworld
 * 기존 Mapshot 서비스에 토지이용계획도, 도시계획도 등을 덧입히기 위해 사용
 * CORS 문제로 인해 재가공 어려움, Vworld에서 Proxy 서버 이용 권유
@@ -23,7 +23,7 @@
 * 그제서야 사진 정상적으로 잘 받아옴
 
 
-### 문제점
+## 문제점
 ### Oracle Cloud Server
 * 분명 서울 Region으로 서버를 세팅했는데도 불구하고 호출이 안됨
 * Ip 확인 결과, 장소는 한국으로 찍히지만 국내에서 관리되는 Ip가 아니라고 나옴
@@ -34,7 +34,7 @@
 * 공인 Ip 발급 & 유지비, 서버 운영비 등등
 * Mapshot 광고 수익으로 충당이 가능할지 의문
 
-### 그 외 기록사항
+## 기록사항
 #### Oracle CentOS 8 방화벽 설정
 * firewalld에 포트 추가 후 iptable에도 추가
 * iptable에 추가 안해주면 안열림
@@ -75,6 +75,12 @@ chmod 777 ./gradlew
 nohup java -jar 파일명.jar
 ```
 
+## 결과물 샘플
+* 토지이용 계획도
+![토지이용계획도](https://user-images.githubusercontent.com/59993347/124061198-6cfeef00-da69-11eb-9ad1-91d994562d94.png)
+
+* 지적도
+![지적도](https://user-images.githubusercontent.com/59993347/124061199-6d978580-da69-11eb-8b0a-5722ba8046e9.png)
 
 
 
