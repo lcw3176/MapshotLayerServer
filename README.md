@@ -34,12 +34,66 @@
 * 공인 Ip 발급 & 유지비, 서버 운영비 등등
 * Mapshot 광고 수익으로 충당이 가능할지 의문
 
+
+## 해결 (2021.07.08 추가)
+### Naver Cloud Function
+* AWS lambda와 유사 
+* 1,000,000 번 이상부터 과금, 추가 비용도 저렴
+* Node.js 로 세팅해놓음
+```javascript
+// default 파라미터 (서버 설정에 존재) -> key, domain
+// 요청 파라미터 -> format, coor, layer
+
+
+// 메인 소스코드
+const request = require('request');
+
+function main(params) {
+    var requestUrl = "https://api.vworld.kr/req/wms?SERVICE=WMS" +
+                     "&key=" + params.key +
+                     "&domain=" + params.domain + 
+                     "&request=GetMap" + 
+                     "&width=1000" +
+                     "&height=1000" + 
+                     "&transparent=TRUE" +
+                     "&format=" + params.format + 
+                     "&bbox=" + params.coor +
+                     "&layers=" + params.layer +
+                     "&styles=" + params.layer;
+    
+    
+    var requestSettings = {
+        url: requestUrl,
+        method: 'GET',
+        encoding: null
+    };
+    
+    return new Promise(function(resolve, reject){
+        request(requestSettings, function(error, response, body){
+
+            if(error){
+                reject({error:error});
+            }
+            
+            var imageData = "data:" 
+                          + response.headers["content-type"] 
+                          + ";base64,"
+                          + Buffer.from(body).toString('base64');
+            
+            resolve({
+                body: imageData
+            });
+        });
+    });
+}
+```
+
 ## 기록사항
 #### Oracle CentOS 8 방화벽 설정
 * firewalld에 포트 추가 후 iptable에도 추가
 * iptable에 추가 안해주면 안열림
 * Naver에 세팅한 CentOS 7.8은 firewalld에만 추가해도 작동 문제없었음
-```
+```vim
 firewall-cmd --permanent --add-port=80/tcp --zone=public
 firewall-cmd --permanent --add-port=443/tcp --zone=public
 firewall-cmd --permanent --add-port=8080/tcp --zone=public
@@ -58,7 +112,7 @@ iptables -t nat -A PREROUTING -p tcp --dport 443 -j REDIRECT --to-port 8080
 
 #### Let's Encrypt, OpenSSL
 ```
-<!-- let's encrypt 발급 -->
+<!-- lets encrypt 발급 -->
 <!-- manual로 발급시 certbot renew 불가능, webroot로 다시 기록 -->
 certbot certonly -d '신청할 도메인' --manual --preferred-challenges dns --server https://acme-v02.api.letsencrypt.org/directory --email example@example.com
 <!-- standalone으로 재발급함 -->
@@ -69,7 +123,7 @@ openssl pkcs12 -export -in fullchain.pem -inkey privkey.pem -out keystore.p12 -n
 ```
 
 #### Java
-```
+```vim
 chmod 777 ./gradlew
 ./gradlew build
 
