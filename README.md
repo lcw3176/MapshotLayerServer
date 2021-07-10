@@ -41,8 +41,8 @@
 * 1,000,000 번 이상부터 과금, 추가 비용도 저렴
 * Node.js 로 세팅해놓음
 ```javascript
-// default 파라미터 (서버 설정에 존재) -> key, domain
-// 요청 파라미터 -> format, coor, layer
+// default 파라미터 (서버 설정에 존재) -> key, domain, format
+// 요청 파라미터 -> coor, layer
 
 
 // 메인 소스코드
