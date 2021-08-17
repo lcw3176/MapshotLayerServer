@@ -88,6 +88,14 @@ function main(params) {
 }
 ```
 
+
+## 기능 폐쇄 (2021.08.17 추가)
+### Cloud Log Analytics
+- 네이버 Cloud Function 로그 분석기
+- Cloud Function은 과금이 안되는데, 이 분석기가 과금이 엄청나게 나옴
+- 연동된 서비스라서 따로 해지도 안됨
+- 게속 고민하다가 결국엔 기능 없앰, 광고료로 충당이 불가능
+
 ## 기록사항
 #### Oracle CentOS 8 방화벽 설정
 * firewalld에 포트 추가 후 iptable에도 추가
