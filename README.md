@@ -1,4 +1,4 @@
-# MapshotProxyServer-Public
+# MapshotLayerServer
 맵샷 레이어 추가를 위한 프록시 서버
 
 ## 개발 환경, 기술 스택
